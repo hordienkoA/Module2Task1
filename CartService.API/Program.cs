@@ -2,10 +2,12 @@ using CartService.BLL.Interfaces;
 using CartService.Contracts.Interfaces;
 using CartService.DAL.Repositories;
 using CartService.BLL.Services;
+using CartService.API.MessageBroker;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<ICartRepository>(sp=> new CartRepository("cart.db"));
+builder.Services.AddHostedService<RabbitMqListener>();
+builder.Services.AddScoped<ICartRepository>(sp=> new CartRepository("cart.db"));
 builder.Services.AddScoped<ICartService, CartService.BLL.Services.CartService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

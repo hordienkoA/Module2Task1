@@ -10,5 +10,6 @@ namespace CartService.Contracts.Interfaces
         Task AddOrUpdateItemAsync(string cartId, CartItem item, CancellationToken ct = default);
         Task RemoveItemAsync(string cartId, int itemId, CancellationToken ct = default);
         Task DeleteCartAsync(string cartId, CancellationToken ct = default);
+        Task UpdateItemsByProductIdAsync(int productId, string newName, decimal newPrice, CancellationToken ct = default);
     }
 }

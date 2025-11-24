@@ -1,5 +1,6 @@
 ﻿
 using CartService.Contracts.Models;
+using System.Threading.Tasks;
 
 namespace CartService.BLL.Interfaces
 {
@@ -9,5 +10,6 @@ namespace CartService.BLL.Interfaces
         Task AddItemAsync(string cartId, CartItem item, CancellationToken ct = default);
         Task RemoveItemAsync(string cartId, int itemId, CancellationToken ct = default);
         Task<string> CreateCartAsync(CancellationToken ct = default);
+        Task UpdateItemAsync(int itemId, string name, decimal price, CancellationToken ct = default);
     }
 }

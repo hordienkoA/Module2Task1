@@ -35,6 +35,11 @@ namespace CartService.BLL.Services
             await _repo.RemoveItemAsync(cartId, itemId, ct);
         }
 
+        public async Task UpdateItemAsync(int itemId, string name, decimal price, CancellationToken ct = default)
+        {
+            await _repo.UpdateItemsByProductIdAsync(itemId, name, price, ct);
+        }
+
         private void ValidateItem(CartItem item)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
