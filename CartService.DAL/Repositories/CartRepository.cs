@@ -84,5 +84,34 @@ namespace CartService.DAL.Repositories
             }
             return Task.CompletedTask;
         }
+
+        public Task UpdateItemsByProductIdAsync(int productId, string newName, decimal newPrice, CancellationToken ct = default)
+        {
+            var carts = _carts.FindAll().ToList();
+
+            bool changed = false;
+
+            foreach (var cart in carts)
+            {
+                foreach (var item in cart.Items)
+                {
+                    if (item.Id == productId)
+                    {
+                        item.Name = newName;
+                        item.Price = newPrice;
+
+                        changed = true;
+                    }
+                }
+
+                if (changed)
+                {
+                    _carts.Update(cart);
+                    changed = false;
+                }
+            }
+
+            return Task.CompletedTask;
+        }
     }
 }
