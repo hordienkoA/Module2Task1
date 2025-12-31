@@ -23,6 +23,12 @@ namespace CartService.BLL.Services
             return await _repo.CreateCartAsync(ct);
         }
 
+        public async Task<Cart?> GetCartAsync(string cartId, CancellationToken ct = default)
+        {
+            if (string.IsNullOrWhiteSpace(cartId)) throw new ArgumentException("cartId required", nameof(cartId));
+            return await _repo.GetCartAsync(cartId, ct);
+        }
+
         public async Task<IEnumerable<CartItem>> GetItemsAsync(string cartId, CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(cartId)) throw new ArgumentNullException("cartId required", nameof(cartId));

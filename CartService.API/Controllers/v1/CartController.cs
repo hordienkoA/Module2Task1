@@ -17,6 +17,10 @@ namespace CartService.API.Controllers.v1
             _service = cartService;
         }
 
+        /// <summary>
+        /// Creates a new cart and returns the cart id.
+        /// </summary>
+        /// <param name="ct">Cancellation token.</param>
         [HttpPost]
         public async Task<IActionResult> CreateCart(CancellationToken ct = default)
         {
@@ -24,6 +28,10 @@ namespace CartService.API.Controllers.v1
             return Ok(new { cartId = id });
         }
 
+        /// <summary>
+        /// Adds an item to the specified cart. If the cart does not exist it will be created.
+        /// Returns 200 on success.
+        /// </summary>
         [HttpPost("{cartId}/items")]
         public async Task<IActionResult> AddItemToCart(
         [FromBody] CartItem cartItem,
@@ -42,6 +50,10 @@ namespace CartService.API.Controllers.v1
             }
         }
 
+        /// <summary>
+        /// Get full cart model (cart id + list of items) for v1.
+        /// Returns 200 with Cart or 404 if not found.
+        /// </summary>
         [HttpGet("{cartId}")]
         public async Task<IActionResult> GetCart(
         [FromRoute] string cartId,
@@ -49,15 +61,20 @@ namespace CartService.API.Controllers.v1
         {
             try
             {
-                var items = await _service.GetItemsAsync(cartId, ct);
-                return Ok(items);
+                var cart = await _service.GetCartAsync(cartId, ct);
+                if (cart == null) return NotFound();
+                return Ok(cart);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                return NotFound();
+                _logger.LogWarning(ex, "Invalid cart id: {CartId}", cartId);
+                return BadRequest(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Deletes an item from the specified cart. Returns 200 on success or 404 if not found.
+        /// </summary>
         [HttpDelete("{cartId}/items/{itemId:int}")]
         public async Task<IActionResult> DeleteItem(
         [FromRoute] string cartId,
@@ -75,7 +92,7 @@ namespace CartService.API.Controllers.v1
             }
             catch (ArgumentException)
             {
-                return NotFound();
+                return BadRequest("Invalid cart id.");
             }
         }
     }
