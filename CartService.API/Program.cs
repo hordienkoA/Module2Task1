@@ -1,7 +1,6 @@
 using CartService.API.MessageBroker;
 using CartService.API.Middleware;
 using CartService.BLL.Interfaces;
-using CartService.BLL.Services;
 using CartService.Contracts.Interfaces;
 using CartService.DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,7 +36,6 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Add API versioning for extensibility
 builder.Services.AddApiVersioning(options =>
 {
     options.ReportApiVersions = true;
@@ -45,8 +43,6 @@ builder.Services.AddApiVersioning(options =>
     options.DefaultApiVersion = new ApiVersion(1, 0);
 });
 
-// Configure Swagger and include XML comments (enable XML doc generation in project)
-// In Visual Studio enable __Project Properties > Build > XML documentation file__
 builder.Services.AddSwaggerGen(options =>
 {
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -59,7 +55,6 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
