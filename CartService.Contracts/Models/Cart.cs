@@ -6,7 +6,7 @@ namespace CartService.Contracts.Models
     {
         [BsonId]
         public string Id { get; set; }
-        public List<CartItem> Items { get; set; } = new List<CartItem>(); 
+        public List<CartItem> Items { get; set; } = new List<CartItem>();
     }
 
     public class CartItem

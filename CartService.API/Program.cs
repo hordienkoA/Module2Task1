@@ -4,10 +4,10 @@ using CartService.BLL.Interfaces;
 using CartService.Contracts.Interfaces;
 using CartService.DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +30,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddHostedService<RabbitMqListener>();
-builder.Services.AddScoped<ICartRepository>(sp=> new CartRepository("cart.db"));
+builder.Services.AddScoped<ICartRepository>(sp => new CartRepository("cart.db"));
 builder.Services.AddScoped<ICartService, CartService.BLL.Services.CartService>();
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();

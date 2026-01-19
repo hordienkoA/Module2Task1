@@ -1,6 +1,5 @@
 ﻿
 using CartService.Contracts.Models;
-using System.Threading.Tasks;
 
 namespace CartService.BLL.Interfaces
 {

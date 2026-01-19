@@ -1,8 +1,6 @@
 ﻿
 using CartService.API.MessageBroker.Messages;
 using CartService.BLL.Interfaces;
-using CartService.BLL.Services;
-using CartService.Contracts.Models;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;

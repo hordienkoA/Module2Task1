@@ -1,5 +1,4 @@
-﻿using CartService.API.Controllers.v1;
-using CartService.BLL.Interfaces;
+﻿using CartService.BLL.Interfaces;
 using CartService.Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
 

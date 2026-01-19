@@ -26,7 +26,8 @@ namespace CartService.DAL.Repositories
             var cart = _carts.FindOne(c => c.Id == cartId) ?? new Cart { Id = cartId };
             var existing = cart.Items.FirstOrDefault(i => i.Id == item.Id);
 
-            if (existing != null) { 
+            if (existing != null)
+            {
                 existing.Quantity = item.Quantity;
                 existing.Name = item.Name;
                 existing.Price = item.Price;
@@ -52,12 +53,12 @@ namespace CartService.DAL.Repositories
 
         public Task DeleteCartAsync(string cartId, CancellationToken ct = default)
         {
-            _carts.DeleteMany(c=>c.Id == cartId);
+            _carts.DeleteMany(c => c.Id == cartId);
             return Task.CompletedTask;
         }
 
         public void Dispose() => _db?.Dispose();
-       
+
 
         public Task<Cart?> GetCartAsync(string cartId, CancellationToken ct = default)
         {
@@ -67,14 +68,14 @@ namespace CartService.DAL.Repositories
 
         public Task<IEnumerable<CartItem>> GetItemsAsync(string cartId, CancellationToken ct = default)
         {
-            var cart = _carts.FindOne(c=>c.Id == cartId);
+            var cart = _carts.FindOne(c => c.Id == cartId);
             return Task.FromResult(cart?.Items ?? Enumerable.Empty<CartItem>());
         }
 
         public Task RemoveItemAsync(string cartId, int itemId, CancellationToken ct = default)
         {
-            var cart = _carts.FindOne(c=>c.Id==cartId);
-            if(cart == null) return Task.CompletedTask;
+            var cart = _carts.FindOne(c => c.Id == cartId);
+            if (cart == null) return Task.CompletedTask;
 
             var item = cart.Items.FirstOrDefault(c => c.Id == itemId);
             if (item != null)
