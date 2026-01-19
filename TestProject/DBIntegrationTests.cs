@@ -3,7 +3,7 @@ using CartService.DAL.Repositories;
 
 namespace TestProject
 {
-    
+
     public class DBIntegrationTests
     {
         [Fact]
